@@ -11,11 +11,8 @@ COPY . .
 RUN pip install --upgrade pip
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Expose a port (Railway sets this automatically)
+# Expose a port (Railway assigns it dynamically)
 EXPOSE 8080
 
-# Ensure start.sh is executable
-RUN chmod +x /app/start.sh
-
-# Run the start.sh script
-CMD ["/app/start.sh"]
+# Run the application with Railway's PORT environment variable
+CMD ["sh", "-c", "uvicorn api:app --host 0.0.0.0 --port ${PORT:-8080}"]
