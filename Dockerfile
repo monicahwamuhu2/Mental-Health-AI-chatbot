@@ -4,21 +4,15 @@ FROM python:3.10
 # Set working directory inside the container
 WORKDIR /app
 
-# Copy project files into container
+# Copy project files into the container
 COPY . .
-
-# Create a virtual environment
-RUN python -m venv /opt/venv
-ENV PATH="/opt/venv/bin:$PATH"
 
 # Upgrade pip and install dependencies
 RUN pip install --upgrade pip
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Expose port 8080 for Railway
+# Expose a port (Railway sets this automatically)
 EXPOSE 8080
 
-# Command to run the application
-
-CMD ["uvicorn", "api:app", "--host", "0.0.0.0", "--port", "8080"]
-
+# Run the application using Railway's PORT environment variable
+CMD ["uvicorn", "api:app", "--host", "0.0.0.0", "--port", "${PORT}"]
