@@ -1,0 +1,10 @@
+{
+    "build": {
+      "nixpacks": {
+        "plan": {
+          "python": "3.10"
+        }
+      }
+    }
+  }
+  
