@@ -14,5 +14,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Expose a port (Railway sets this automatically)
 EXPOSE 8080
 
-# Run the application using Python to retrieve the PORT variable
-CMD ["python", "-c", "import os; import uvicorn; uvicorn.run('api:app', host='0.0.0.0', port=int(os.getenv('PORT', 8080)))"]
+# Ensure start.sh is executable
+RUN chmod +x /app/start.sh
+
+# Run the start.sh script
+CMD ["/app/start.sh"]
