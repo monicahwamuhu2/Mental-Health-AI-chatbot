@@ -4,15 +4,15 @@ FROM python:3.10
 # Set working directory inside the container
 WORKDIR /app
 
-# Copy only necessary files into the container (make sure to add .dockerignore for unwanted files)
+# Copy project files into the container
 COPY . .
 
-# Upgrade pip and install dependencies in one step
-RUN pip install --upgrade pip && \
-    pip install --no-cache-dir -r requirements.txt
+# Upgrade pip and install dependencies
+RUN pip install --upgrade pip
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Expose the port for the app (Railway assigns it dynamically)
+# Expose a port (Railway assigns it dynamically)
 EXPOSE 8000
 
-# Start the application using Railway's PORT environment variable
+# Run the application with Railway's PORT environment variable
 CMD ["uvicorn", "api:app", "--host", "0.0.0.0", "--port", "${PORT:-8000}"]
